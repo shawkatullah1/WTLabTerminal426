@@ -8,6 +8,13 @@ router.get("/", async function (req, res, next) {
   console.log(req.session.user);
   res.render("products/list", { title: "Products In DB", products });
 });
+
+router.get("/cart", function (req, res, next) {
+  let cart = req.cookies.cart;
+  if (!cart) cart = [];
+  res.render("cart", { cart });
+});
+
 router.get("/add", checkSessionAuth, async function (req, res, next) {
   res.render("products/add");
 });
@@ -50,6 +57,13 @@ router.post("/edit/:id", async function (req, res, next) {
   product.price = req.body.price;
   await product.save();
   res.redirect("/products");
+});
+
+router.post("/products/rating", async function (req, res, next) {
+  let product = await Product.findById(req.body._id);
+  product.rating = req.body.rate;
+  await product.save();
+  res.redirect("/");
 });
 
 module.exports = router;
