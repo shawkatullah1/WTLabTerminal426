@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/products", productsRouter);
+//app.use("/", indexRouter);
+app.use("/", productsRouter);
 app.use("/", usersRouter);
 
 // catch 404 and forward to error handler
@@ -42,7 +42,7 @@ app.use(function (err, req, res, next) {
 });
 
 mongoose
-  .connect("mongodb+srv://admin:admin@web-lab-terminal.offst.mongodb.net/web-lab-terminal", {
+  .connect("mongodb+srv://admin:admin@terminal.qtpsg.mongodb.net/Terminal", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
